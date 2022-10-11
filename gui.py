@@ -1,27 +1,29 @@
-import PySimpleGUI as sg
+import PySimpleGUI as gui
+import kushka
+from kushka import Rekins
 
-sg.theme('DarkAmber')
+gui.theme('DarkAmber')
 
-layout = [[sg.Text('Nospied!'),sg.Button('Skeres'),sg.Button('Akmens'),sg.Button('Papirs')],
-[sg.Text('',key='-LEMUMS-')],
-[sg.Text('Vards'),sg.InputText()],
-[sg.Button('Neaizvert')],
-[sg.Button('Aizvert')]]
+laditeLayout = [[gui.Text('Ievadi Vardu')],
+[gui.InputText('',key='Vards'),
+gui.Text('',key='-DATI-')],
+[gui.Text('Ievadi Veltijumu')],
+[gui.InputText('',key='Veltijums')],
+[gui.Text('Ievadi Izmeru (platums/garums/augstums)')],
+[gui.InputText('',key='Izmers')],
+[gui.Text('Ievadi Materiala Cenu')],
+[gui.InputText('',key='Materials'),
+gui.Button('Aprekinat',key='Aprekins')]]
 
-window = sg.Window('Spele',layout)
+window = gui.Window('Rekins',laditeLayout, size=(500,250),finalize=True)
 
 while True:
     event, values = window.read()
-    if event == 'Skeres':
-        window['-LEMUMS-'].update('Izvele: Skeres')
-    if event == 'Akmens':
-        window['-LEMUMS-'].update('Izvele: Akmens')
-    if event == 'Papirs':
-        window['-LEMUMS-'].update('Izvele: Papirs')
-    if event == 'Neaizvert':
-        vards = values[0]
-        window['-LEMUMS-'].update(vards)
-    if event == 'Aizvert':
+    if event == 'Aprekins':
+        print('Poga Nospiesta')
+        dati = Rekins(values['Vards'],values['Veltijums'],values['Izmers'],values['Materials'])
+        window['-DATI-'].update('Klients: '+values['Vards']+'\nVeltijums: '+values['Veltijums']+'\nIzmers: '+values['Izmers']+'\nMateriala Cena: '+values['Materials']+'\nLaiks: '+str(dati.izdrukat()[0])+'\nSumma: '+str(dati.izdrukat()[1]))
+    if event == gui.WIN_CLOSED:
         break
 
 window.close()
