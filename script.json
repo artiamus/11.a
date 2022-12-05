@@ -1,0 +1,10 @@
+const API = "http://"
+let manaZina = document.querySelector('.manaZina')
+let chataZinas = document.querySelector('.chataZinas')
+let vards = document.querySelector('.vards')
+
+function sutitZinu(){
+    console.log("sutitzinu() darbojas")
+    chataZinas.innerHTML += '<br/>' + manaZina.value
+    fetch(API+'/sutit/'+vards.value'/'+manaZina.value)
+}
